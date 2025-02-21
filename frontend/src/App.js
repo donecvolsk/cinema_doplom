@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './layouts/client/css/styles.css';
-import MovieDetails from './components/clientComponents/MovieDetails';
-import CinemaHall from './components/clientComponents/CinemaHall';
+import MovieDetailsComponent from './components/clientComponents/MovieDetailsComponent';
+import HallComponent from './components/clientComponents/HallComponent';
 import BookingForm from './components/clientComponents/BookingForm';
 
 
@@ -15,8 +15,8 @@ function App() {
     </header>
     <Router>
             <Routes>
-                <Route path="/" element={<MovieDetails />} />
-                <Route path="hall" element={<CinemaHall />} />
+                <Route path="/" element={<MovieDetailsComponent />} />
+                <Route path="hall/:sessionId" element={<HallComponent />} />
                 <Route path="payment" element={<BookingForm />} />
             </Routes>
         </Router>

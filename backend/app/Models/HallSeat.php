@@ -5,25 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Session extends Model
+class HallSeat extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'film_id',
-        'start_time',
-        'end_time',
         'cinema_hall_id',
+        'row_number',
+        'seat_number',
+        'seat_type_id',
     ];
-
-    public function film()
-    {
-        return $this->belongsTo(Film::class);
-    }
 
     public function cinemaHall()
     {
         return $this->belongsTo(CinemaHall::class);
+    }
+
+    public function seatType()
+    {
+        return $this->belongsTo(SeatType::class);
     }
 
     public function sessionSeats()

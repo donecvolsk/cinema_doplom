@@ -14,14 +14,18 @@ class CreateSessionsTable extends Migration
     public function up()
     {
         Schema::create('sessions', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('film_id');
-            $table->foreign('film_id')->references('id')->on('films');
-            $table->datetime('start_time');
-            $table->datetime('end_time');
-            $table->unsignedBigInteger('cinema_hall_id');
-            $table->foreign('cinema_hall_id')->references('id')->on('cinema_halls');
-            $table->timestamps();
+            $table->id(); // Идентификатор сеанса
+            $table->unsignedBigInteger('film_id'); // Связь с фильмом
+            $table->foreign('film_id') // Внешний ключ на таблицу films
+                ->references('id')
+                ->on('films');
+            $table->datetime('start_time'); // Время начала сеанса
+            $table->datetime('end_time'); // Время окончания сеанса
+            $table->unsignedBigInteger('cinema_hall_id'); // Связь с залом
+            $table->foreign('cinema_hall_id') // Внешний ключ на таблицу cinema_halls
+                ->references('id')
+                ->on('cinema_halls');
+            $table->timestamps(); // Поля created_at и updated_at
         });
     }
 

@@ -1,13 +1,17 @@
+// FilmCardComponent.js
+
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { Link } from 'react-router-dom'; // Используем Link вместо тега <a>
 
-const FilmCard = ({ filmId, selectedDate }) => {
-  const [film, setFilm] = useState(null);
+const FilmCardComponent = ({ filmId, selectedDate }) => {
+  const [film, setFilm] = useState(null); // Сотояние конкретного фильма с сессиями и залами 
 
   useEffect(() => {
     const fetchFilm = async () => {
       try {
+        //Получение конкретного фильма с сессиями и залами
         const response = await fetch(`http://localhost:8000/api/films/${filmId}`);
         const data = await response.json();
         setFilm(data);
@@ -19,10 +23,11 @@ const FilmCard = ({ filmId, selectedDate }) => {
     fetchFilm();
   }, [filmId]);
 
+  // отображение состояния загрузки фильмов с сервера
   if (!film) {
     return <div>Loading...</div>;
   }
-
+//console.log(filmId);
   // Группируем сессии по залам
   const groupedSessions = film.sessions.reduce((acc, session) => {
     const sessionDate = moment(session.start_time);
@@ -57,7 +62,10 @@ const FilmCard = ({ filmId, selectedDate }) => {
             <ul className="movie-seances__list">
               {sessions.map(session => (
                 <li className="movie-seances__time-block" key={session.id}>
-                  <a className="movie-seances__time" href="">{moment(session.start_time).format('HH:mm')}</a>
+                  {/* Используем Link вместо a */}
+                  <Link to={`hall/${session.id}`} className="movie-seances__time" target="_blank">
+                    {moment(session.start_time).format('HH:mm')}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -71,9 +79,9 @@ const FilmCard = ({ filmId, selectedDate }) => {
   );
 };
 
-FilmCard.propTypes = {
+FilmCardComponent.propTypes = {
   filmId: PropTypes.number.isRequired,
   selectedDate: PropTypes.instanceOf(moment).isRequired,
 };
 
-export default FilmCard;
+export default FilmCardComponent;

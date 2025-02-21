@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-const DateMenu = ({ onDateChange }) => {
+const DateMenuComponent = ({ onDateChange }) => {
   // Создаем массив дат на 12 дней вперед начиная с сегодняшнего дня
   const today = moment().startOf('day');
   const dates = [...Array(12)].map((_, i) => today.clone().add(i, 'days'));
@@ -13,12 +13,12 @@ const DateMenu = ({ onDateChange }) => {
   // Состояние для управления показом всех дат
   const [showAllDates, setShowAllDates] = useState(false);
 
-  // Функция для изменения состояния показа следующих дней
+  // Функция для перехода к следующим 6 дням ">"
   const toggleShowAllDates = () => {
-    setShowAllDates(true); // Переключаемся на показ следующих дней
+    setShowAllDates(true);
   };
 
-  // Функция для возвращения к первым дням
+  // Функция для перехода к первым 6 дням ">"
   const goBackToFirstDays = () => {
     setShowAllDates(false); // Возвращаемся к первым дням
   };
@@ -65,8 +65,8 @@ const DateMenu = ({ onDateChange }) => {
   );
 };
 
-DateMenu.propTypes = {
+DateMenuComponent.propTypes = {
   onDateChange: PropTypes.func.isRequired,
 };
 
-export default DateMenu;
+export default DateMenuComponent;
