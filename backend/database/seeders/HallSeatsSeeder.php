@@ -25,7 +25,7 @@ class HallSeatsSeeder extends Seeder
                         'cinema_hall_id' => $hall->id,
                         'row_number' => $i,
                         'seat_number' => $j,
-                        'seat_type_id' => rand(1, 3), // Предположим, что есть 3 типа кресел
+                        'seat_type_id' => rand(1, 2), // Предположим, что есть 3 типа кресел
                     ]);
                 }
             }

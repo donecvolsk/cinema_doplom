@@ -16,13 +16,13 @@ class CinemaHallsSeeder extends Seeder
     {
         // Добавляем три зала
         CinemaHall::create([
-            'name' => 'Зал №1',
+            'name' => '1',
             'total_rows' => 3,
             'total_seats_per_row' => 3,
         ]);
         
         CinemaHall::create([
-            'name' => 'Зал №2',
+            'name' => '2',
             'total_rows' => 4,
             'total_seats_per_row' => 4,
         ]);

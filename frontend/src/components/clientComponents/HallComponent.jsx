@@ -40,7 +40,7 @@ function HallComponent() {
                     <div className="buying__info-description">
                         <h2 className="buying__info-title">{film.title}</h2>
                         <p className="buying__info-start">Начало сеанса: {moment(session.start_time).format('HH:mm')}</p>
-                        <p className="buying__info-hall">{session.cinema_hall.name}</p>          
+                        <p className="buying__info-hall">Зал {session.cinema_hall.name}</p>          
                     </div>
                     <div className="buying__info-hint">
                         <p>Тапните дважды,<br/>чтобы увеличить</p>

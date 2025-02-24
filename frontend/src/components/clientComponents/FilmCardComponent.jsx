@@ -58,12 +58,12 @@ const FilmCardComponent = ({ filmId, selectedDate }) => {
         Object.entries(groupedSessions).map(([hallName, sessions]) => (
           <React.Fragment key={hallName}>
             <div className="movie-seances__hall">
-            <h3 className="movie-seances__hall-title">{hallName}</h3>
+            <h3 className="movie-seances__hall-title">Зал {hallName}</h3>
             <ul className="movie-seances__list">
               {sessions.map(session => (
                 <li className="movie-seances__time-block" key={session.id}>
                   {/* Используем Link вместо a */}
-                  <Link to={`hall/${session.id}`} className="movie-seances__time" target="_blank">
+                  <Link to={`hall/${session.id}`} className="movie-seances__time">
                     {moment(session.start_time).format('HH:mm')}
                   </Link>
                 </li>
