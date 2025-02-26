@@ -19,8 +19,7 @@ class DatabaseSeeder extends Seeder
             SeatTypesSeeder::class,
             HallSeatsSeeder::class,           
             SessionSeeder::class,            
-            SessionSeatsSeeder::class,           
-            
+            //SessionSeatsSeeder::class,                       
         ]);
     }
 }

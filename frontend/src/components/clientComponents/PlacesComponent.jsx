@@ -1,6 +1,7 @@
+//компонент отображает блоки с интерактивными креслами в зале и кнопку бронирования. Компонент-родитель: HallComponent.
+
 import React, { useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-//import { Link } from 'react-router-dom'; // Используем Link вместо тега <a>
 import { useNavigate } from 'react-router-dom';
 
 const PlacesComponent = ({ session }) => {
@@ -27,7 +28,9 @@ const PlacesComponent = ({ session }) => {
                 //Получение кресел в зале по типу "занято"
                 const seatResponse = await fetch(`http://127.0.0.1:8000/api/session-seats-is_booked?session_id=${session.id}`);
                 const sessionSeatsData = await seatResponse.json();
-                setSessionSeats(sessionSeatsData);
+                if (sessionSeatsData.length > 0) {
+                    setSessionSeats(sessionSeatsData);
+                }
                 //Получение всех типов кресел
                 const typeResponse = await fetch(`http://127.0.0.1:8000/api/seat-types`);
                 const typeResponsesData = await typeResponse.json();
@@ -59,7 +62,6 @@ const PlacesComponent = ({ session }) => {
         navigate('/ticket', { state: { selectedSeat, session, seats, typeSeat }}); // Навигация с передачей данных
     };
 
-    //console.log(selectedSeat);
     return (
         // В компоненте PlacesComponent добавляем передачу rowIndex и colIndex в функцию обратного вызова
         <>
@@ -74,8 +76,8 @@ const PlacesComponent = ({ session }) => {
                             const isVIP = seats.some(seat => seat.row_number === Number(rowIndex) && seat.seat_number === Number(colIndex + 1) && seat.seat_type_id === 2);                    
                             const isDisabled = seats.some(seat => seat.row_number === Number(rowIndex) && seat.seat_number === Number(colIndex + 1) && seat.seat_type_id === 3);
                             // Проверяем, забронировано ли место                           
-                            const isBooked = sessionSeats.some(seat => seat.row_number === Number(rowIndex) && seat.seat_number === Number(colIndex + 1) && seat.is_booked === 1);   
-                            //const isSelected = selectedSeat && selectedSeat[0] === rowIndex && selectedSeat[1] === colIndex;
+                            const isBooked = sessionSeats.some(seat => seat.row_number === Number(rowIndex) && seat.seat_number === Number(colIndex + 1) && seat.is_booked === 1);
+                            // Проверяем, кликнутое кресло 
                             const isSelected = selectedSeat.some(([r, c]) => r === rowIndex && c === colIndex);
                             // Отключаем возможность клика занятого кресла
                             let disabled = false;
@@ -109,14 +111,6 @@ const PlacesComponent = ({ session }) => {
             
         </div>       
         <button className="acceptin-button" onClick={handleSubmit}> Забронировать </button>
-        <div className="selected-seats">
-            {selectedSeat.length > 0 &&
-                <h4>Выбранные места:</h4>
-            }
-            {selectedSeat.map(([row, col], idx) => (
-                <p key={idx}>Ряд {row}, Место {col + 1}</p>
-            ))}
-            </div>
         </>
     );
 };

@@ -4,7 +4,7 @@ import './layouts/client/css/styles.css';
 import MovieDetailsComponent from './components/clientComponents/MovieDetailsComponent';
 import HallComponent from './components/clientComponents/HallComponent';
 import PaymentComponent from './components/clientComponents/PaymentComponent';
-
+import ConfirmationComponent from './components/clientComponents/ConfirmationComponent';
 
 
 function App() {
@@ -18,6 +18,7 @@ function App() {
                 <Route path="/" element={<MovieDetailsComponent />} />
                 <Route path="hall/:sessionId" element={<HallComponent />} />
                 <Route path="ticket" element={<PaymentComponent />} />
+                <Route path="confirm" element={<ConfirmationComponent />} />
             </Routes>
         </Router>
     </>

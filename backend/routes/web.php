@@ -8,12 +8,12 @@ use App\Http\Controllers\SeatTypeController;
 
 Route::group(['prefix' => 'api'], function () {
     Route::resource('films', 'App\Http\Controllers\FilmsController');
-    Route::resource('sessions', 'App\Http\Controllers\SessionsController');
+    Route::resource('sessions', 'App\Http\Controllers\SessionsController');//сессии показа фильмов
     Route::post('tickets', 'App\Http\Controllers\TicketsController@store');
     Route::get('/images/{filename}', [ImageController::class, 'show']); //получить линк ссылку на картинку к фильму
     Route::get('/sessions/hall-seats/{sessionId}', [SessionsController::class, 'getHallSeats']);//получить все кресла в зале по сессии
-    Route::resource('seat-types', SeatTypeController::class);//получить типы кресел   
-    Route::resource('/session-seats', SessionSeatController::class);////получить занятые кресла
+    Route::resource('seat-types', SeatTypeController::class);// типы кресел   
+    Route::resource('/session-seats', SessionSeatController::class);// занятые кресла
     Route::get('/session-seats-is_booked', [SessionSeatController::class, 'getSessionSeatsIs_booked']);//получить занятые кресла в зале по сессии   
 });
 

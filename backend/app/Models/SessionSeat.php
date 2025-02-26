@@ -12,6 +12,8 @@ class SessionSeat extends Model
     protected $fillable = [
         'session_id',
         'hall_seat_id',
+        'row_number',
+        'seat_number',
         'is_booked',
     ];
 

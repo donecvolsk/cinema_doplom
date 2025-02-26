@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SessionSeat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator; // Добавлен импорт Validator
 
 class SessionSeatController extends Controller
 {
@@ -34,22 +35,27 @@ class SessionSeatController extends Controller
         return response()->json($sessionSeats);
     }
 
-
     public function store(Request $request)
     {
-        // Валидируем входные данные
-        $validatedData = $request->validate([
-            'session_id' => 'required|integer',
-            'hall_seat_id' => 'required|integer',
-            'is_booked' => 'required|boolean',
-        ]);
-
-        // Создаем новую запись в таблице session_seats
-        $sessionSeat = SessionSeat::create($validatedData);
-
-        return response()->json($sessionSeat, 201);
+        // Получаем массив данных о местах
+        $seatsData = $request->input('seats');
+    
+        foreach ($seatsData as $seat) {
+            // Валидируем данные для каждого места
+            $validatedData = Validator::make($seat, [
+                'session_id' => 'required|integer',
+                'hall_seat_id' => 'required|integer',
+                'row_number' => 'required|integer',
+                'seat_number' => 'required|integer',
+                'is_booked' => 'required|boolean',
+            ])->validate();
+    
+            // Сохраняем каждую запись
+            $sessionSeat = SessionSeat::create($validatedData);
+        }
+    
+        return response()->json(['message' => 'Записи успешно созданы!'], 200);
     }
-
 
     public function show(SessionSeat $sessionSeat)
     {

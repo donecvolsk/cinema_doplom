@@ -1,4 +1,4 @@
-// File: src/components/FilmList.jsx
+//компонент отображает содержимое компонетов DateMenuComponent и FilmCardComponent. Компонент-родитель: App.js
 
 import React, { useState, useEffect } from 'react';
 import FilmCardComponent from './FilmCardComponent';

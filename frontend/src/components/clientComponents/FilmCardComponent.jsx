@@ -1,4 +1,4 @@
-// FilmCardComponent.js
+//компонент отображает блоки с фильмом, картникой фильма, залами, сессиями на день показа. Компонент-родитель: MovieDetailsComponent.
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';

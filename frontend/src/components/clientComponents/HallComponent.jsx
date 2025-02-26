@@ -1,3 +1,4 @@
+//компонент отображает блок с фильмом, сеансом, залом и содержимое компонента PlacesComponent.
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useParams } from 'react-router-dom'; // Для получения параметров из URL
@@ -31,8 +32,7 @@ function HallComponent() {
     if (!session || !film) {
         return <div>Loading...</div>;
     }
-  //console.log(session.cinema_hall.rows * session.cinema_hall.seats_per_row);
-  //console.log(film);
+
     return (
         <main>
             <section className="buying">

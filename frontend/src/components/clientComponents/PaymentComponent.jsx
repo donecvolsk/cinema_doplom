@@ -1,11 +1,14 @@
-
+//компонет отображает выбранные фильм, места, зал, сеанс, итоговую стимость, кнопка брони.
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
+
 
 const PaymentComponent = () => {
     const [film, setFilm] = useState([]); // Сотояние конкретного фильма
     const location = useLocation();
+    const navigate = useNavigate(); // Добавляем навигацию
     const { selectedSeat, session, seats, typeSeat } = location.state || {};
     //console.log(typeSeat);
 
@@ -27,6 +30,44 @@ const PaymentComponent = () => {
     // отображение состояния загрузки фильмов с сервера
     if (!film) {
       return <div>Loading...</div>;
+    }
+
+    async function handleCombinedSubmit(event) {
+        event.preventDefault();
+    
+        const url = 'http://127.0.0.1:8000/api/session-seats'; // Укажите правильный путь к вашему API
+    
+        try {
+            // Перебираем каждое кресло и формируем массив данных для отправки
+            const seatsData = selectedSeat.map(([row, col]) => ({
+                session_id: session.id,
+                hall_seat_id: session.cinema_hall.id,
+                row_number: row,
+                seat_number: col + 1, // Добавляем 1, чтобы номера начинались с 1
+                is_booked: true,
+            }));
+    
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ seats: seatsData }), // Отправляем массив данных
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Ошибка при создании записи: ${response.status}`);
+            }
+    
+            const data = await response.json(); // Получим результат в виде JSON
+            alert('Места успешно забронированы!');
+            console.log(data); // Вывод результата в консоль
+    
+            // После успешной отправки данных переходим на страницу подтверждения
+            navigate('/confirm', { state: { film, selectedSeat, session, seats, typeSeat }});
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 
     // Рассчитываем общую стоимость
@@ -69,13 +110,13 @@ const PaymentComponent = () => {
                             <p key={idx}>{rowString}</p>
                         ))}
                     </>
-    )}
+                )}
                 </span></div>
                 <p className="ticket__info">В зале: <span className="ticket__details ticket__hall">{session.cinema_hall.name}</span></p>
                 <p className="ticket__info">Начало сеанса: <span className="ticket__details ticket__start">{moment(session.start_time).format('DD-MM-GG HH:mm')}</span></p>
                 <p className="ticket__info">Стоимость: <span className="ticket__details ticket__cost">{calculateTotalPrice()}</span> рублей</p>
 
-                <button className="acceptin-button" >Получить код бронирования</button>
+                <button className="acceptin-button" onClick={handleCombinedSubmit}>Получить код бронирования</button>
 
                 <p className="ticket__hint">После оплаты билет будет доступен в этом окне, а также придёт вам на почту. Покажите QR-код нашему контроллёру у входа в зал.</p>
                 <p className="ticket__hint">Приятного просмотра!</p>
