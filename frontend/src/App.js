@@ -10,17 +10,17 @@ import ConfirmationComponent from './components/clientComponents/ConfirmationCom
 function App() {
   return (
     <>
-    <header className="page-header">
-      <h1 className="page-header__title" >Идём<span>в</span>кино</h1>      
-    </header>
-    <Router>
-            <Routes>
-                <Route path="/" element={<MovieDetailsComponent />} />
-                <Route path="hall/:sessionId" element={<HallComponent />} />
-                <Route path="ticket" element={<PaymentComponent />} />
-                <Route path="confirm" element={<ConfirmationComponent />} />
-            </Routes>
-        </Router>
+      <header className="page-header">
+        <h1 className="page-header__title" >Идём<span>в</span>кино</h1>      
+      </header>
+      <Router>
+        <Routes>
+          <Route path="/" element={<MovieDetailsComponent />} />
+            <Route path="hall/:sessionId" element={<HallComponent />} />
+            <Route path="ticket" element={<PaymentComponent />} />
+            <Route path="confirm" element={<ConfirmationComponent />} />
+        </Routes>
+      </Router>
     </>
 
 

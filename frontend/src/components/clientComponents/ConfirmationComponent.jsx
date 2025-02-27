@@ -2,10 +2,18 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import moment from 'moment';
+import { QRCode } from 'react-qrcode';
 
 function ConfirmationComponent() {
     const location = useLocation();
     const { film, selectedSeat, session } = location.state || {};
+
+     // Данные для QR-кода
+     const qrData = JSON.stringify({
+        Фильм: film.title,
+        Места: selectedSeat,
+        Сеанс: moment(session.start_time).format('DD-MM-GG HH:mm'),
+    });
 
      // Создаем объект для хранения строк с местами по каждому ряду
      const rowsWithSeats = {};
@@ -41,9 +49,10 @@ function ConfirmationComponent() {
                         </span></div>
                     <p className="ticket__info">В зале: <span className="ticket__details ticket__hall">{session.cinema_hall.name}</span></p>
                     <p className="ticket__info">Начало сеанса: <span className="ticket__details ticket__start">{moment(session.start_time).format('DD-MM-GG HH:mm')}</span></p>
+                    {/* Вместо статичного изображения добавляем QRCode */}
 
-                    <img className="ticket__info-qr" src="i/qr-code.png" alt='filmImage' />
-
+                    <QRCode className="ticket__info-qr" value={qrData} size={200} level="H" includeMargin />
+                    
                     <p className="ticket__hint">Покажите QR-код нашему контроллеру для подтверждения бронирования.</p>
                     <p className="ticket__hint">Приятного просмотра!</p>
                 </div>
@@ -54,3 +63,4 @@ function ConfirmationComponent() {
 }
 
 export default ConfirmationComponent;
+//<img className="ticket__info-qr" src="i/qr-code.png" alt='filmImage' />
