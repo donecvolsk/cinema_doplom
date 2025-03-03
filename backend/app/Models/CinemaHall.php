@@ -10,6 +10,7 @@ class CinemaHall extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'name',
         'total_rows',
         'total_seats_per_row',

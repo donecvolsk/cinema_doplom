@@ -13,6 +13,8 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'api/tickets',
-        '/api/session-seats'
+        '/api/session-seats',
+        '/administrator//cinema-halls/add',
+        '/administrator/cinema-halls/del/*'
     ];
 }

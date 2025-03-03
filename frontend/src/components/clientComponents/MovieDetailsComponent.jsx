@@ -3,7 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import FilmCardComponent from './FilmCardComponent';
 import DateMenuComponent from './DateMenuComponent';
+import HeaderClientsComponent from './HeaderClientsComponent';
 import moment from 'moment';
+import '../../layouts/client/css/styles.css'
 
 const MovieDetailsComponent = () => {
   const [films, setFilms] = useState([]); // Состояние всех фильмов
@@ -27,9 +29,10 @@ const MovieDetailsComponent = () => {
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
- //console.log(selectedDate);
+
   return (
-    <>     
+    <div className='client_body'>
+      <HeaderClientsComponent />    
       <DateMenuComponent onDateChange={handleDateChange} /> {/* Передача функции handleDateChange */}    
       <main>
         {films.length > 0 ? (
@@ -42,7 +45,7 @@ const MovieDetailsComponent = () => {
           <p>Нет доступных фильмов.</p>
         )}
       </main>      
-    </>
+    </div>
   );
 };
 

@@ -18,13 +18,16 @@ html {
   font-family: "Roboto", sans-serif;
   font-size: 62.5%; }
 
-body {
+.admin_body {
   background-image: url("../i/background.jpg");
   background-color: rgba(0, 0, 0, 0.5);
   background-blend-mode: multiply;
   background-size: cover;
   background-attachment: fixed;
-  counter-reset: num; }
+  counter-reset: num;
+   
+}
+  
 
 input[type='radio'], input[type='submit'], button, .conf-step__header, select {
   cursor: pointer; }
@@ -183,7 +186,9 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
   font-size: 1.4rem;
   transition-property: background-color;
   transition-duration: .5s;
-  transition-timing-function: ease; }
+  transition-timing-function: ease;
+  margin-left: 10px;
+ }
   .conf-step__button:hover, .conf-step__button:focus, .login__button:hover, .login__button:focus {
     background-color: #EEEAF1;
     outline: none; }

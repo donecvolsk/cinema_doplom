@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
+import HeaderClientsComponent from './HeaderClientsComponent';
 
 
 const PaymentComponent = () => {
@@ -95,34 +96,38 @@ const PaymentComponent = () => {
     const rowsToDisplay = Object.entries(rowsWithSeats).map(([rowNumber, seatsInRow]) => `Ряд ${rowNumber}, Место: ${seatsInRow.join(', ')}`);
 
     return (
-    <main>
-        <section className="ticket">        
-            <header className="tichet__check">
-                <h2 className="ticket__check-title">Вы выбрали билеты:</h2>
-            </header>
-            
-            <div className="ticket__info-wrapper">
-                <p className="ticket__info">На фильм: <span className="ticket__details ticket__title">{film.title}</span></p>
-                <div className="ticket__info">Места:<span className="ticket__details ticket__chairs">
-                {rowsToDisplay.length > 0 && (
-                    <>
-                        {rowsToDisplay.map((rowString, idx) => (
-                            <p key={idx}>{rowString}</p>
-                        ))}
-                    </>
-                )}
-                </span></div>
-                <p className="ticket__info">В зале: <span className="ticket__details ticket__hall">{session.cinema_hall.name}</span></p>
-                <p className="ticket__info">Начало сеанса: <span className="ticket__details ticket__start">{moment(session.start_time).format('DD-MM-GG HH:mm')}</span></p>
-                <p className="ticket__info">Стоимость: <span className="ticket__details ticket__cost">{calculateTotalPrice()}</span> рублей</p>
+        <>
+            <HeaderClientsComponent /> 
+            <main>
+                <section className="ticket">        
+                    <header className="tichet__check">
+                        <h2 className="ticket__check-title">Вы выбрали билеты:</h2>
+                    </header>
+                    
+                    <div className="ticket__info-wrapper">
+                        <p className="ticket__info">На фильм: <span className="ticket__details ticket__title">{film.title}</span></p>
+                        <div className="ticket__info">Места:<span className="ticket__details ticket__chairs">
+                        {rowsToDisplay.length > 0 && (
+                            <>
+                                {rowsToDisplay.map((rowString, idx) => (
+                                    <p key={idx}>{rowString}</p>
+                                ))}
+                            </>
+                        )}
+                        </span></div>
+                        <p className="ticket__info">В зале: <span className="ticket__details ticket__hall">{session.cinema_hall.name}</span></p>
+                        <p className="ticket__info">Начало сеанса: <span className="ticket__details ticket__start">{moment(session.start_time).format('DD-MM-GG HH:mm')}</span></p>
+                        <p className="ticket__info">Стоимость: <span className="ticket__details ticket__cost">{calculateTotalPrice()}</span> рублей</p>
 
-                <button className="acceptin-button" onClick={handleCombinedSubmit}>Получить код бронирования</button>
+                        <button className="acceptin-button" onClick={handleCombinedSubmit}>Получить код бронирования</button>
 
-                <p className="ticket__hint">После оплаты билет будет доступен в этом окне, а также придёт вам на почту. Покажите QR-код нашему контроллёру у входа в зал.</p>
-                <p className="ticket__hint">Приятного просмотра!</p>
-            </div>
-        </section>
-    </main>  
+                        <p className="ticket__hint">После оплаты билет будет доступен в этом окне, а также придёт вам на почту. Покажите QR-код нашему контроллёру у входа в зал.</p>
+                        <p className="ticket__hint">Приятного просмотра!</p>
+                    </div>
+                </section>
+            </main>
+        </>
+          
     );
 };
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\SessionSeatController;
 use App\Http\Controllers\SeatTypeController;
+use App\Http\Controllers\CinemaHallController;
 
 Route::group(['prefix' => 'api'], function () {
     Route::resource('films', 'App\Http\Controllers\FilmsController');
@@ -15,6 +16,13 @@ Route::group(['prefix' => 'api'], function () {
     Route::resource('seat-types', SeatTypeController::class);// типы кресел   
     Route::resource('/session-seats', SessionSeatController::class);// занятые кресла
     Route::get('/session-seats-is_booked', [SessionSeatController::class, 'getSessionSeatsIs_booked']);//получить занятые кресла в зале по сессии   
+    
+});
+
+Route::group(['prefix' => 'administrator'], function () {
+    Route::resource('/cinema-halls/add', CinemaHallController::class);
+    Route::delete('/cinema-halls/del/{id}', [CinemaHallController::class, 'destroyById'])
+    ->name('cinema-halls.destroy-by-id');
 });
 
 

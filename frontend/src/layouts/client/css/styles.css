@@ -10,11 +10,12 @@ html {
   font-size: 62.5%;
 }
 
-body {
+.client_body {
   background-image: url("../i/background.jpg");
   background-size: cover;
   background-attachment: fixed;
   background-position: right;
+  height: 100vh;
 }
 
 .page-header {

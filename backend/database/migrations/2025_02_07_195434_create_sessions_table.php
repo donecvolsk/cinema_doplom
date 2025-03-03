@@ -24,7 +24,8 @@ class CreateSessionsTable extends Migration
             $table->unsignedBigInteger('cinema_hall_id'); // Связь с залом
             $table->foreign('cinema_hall_id') // Внешний ключ на таблицу cinema_halls
                 ->references('id')
-                ->on('cinema_halls');
+                ->on('cinema_halls')
+                ->onDelete('cascade'); // Добавляем каскадное удаление
             $table->timestamps(); // Поля created_at и updated_at
         });
     }
